@@ -1,12 +1,12 @@
 *** Settings ***
-Library    SeleniumLibrary
+Documentation       Tests for EcoBlissBath homepage
 
-*** Variables ***
-${URL}     http://localhost:8080/
-${BROWSER}    Chrome
+Resource            ../resources/keywords.resource
+
 
 *** Test Cases ***
 Test Logo Presence
-    Open Browser    ${URL}    ${BROWSER}
+    [Documentation]    Verify logo EcoBlissBath visibility
+    Open EcoBlissBath Website
     Element Should Be Visible    xpath=//a[@data-cy='nav-link-home-logo']/img
-    Close Browser
+    Close Browser Session
