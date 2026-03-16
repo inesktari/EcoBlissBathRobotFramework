@@ -28,3 +28,23 @@ Add First Product To Cart
 Open Cart
     [Documentation]    Opens the shopping cart page
     Click Element    ${CART_ICON}
+
+Open Login Page
+    [Documentation]    Navigate to the login page
+    Open Browser    ${URL}#/login    ${BROWSER}
+    Maximize Browser Window
+
+Input Username
+    [Documentation]    Input valid username into login form
+    Wait Until Element Is Visible    id=username
+    Input Text    id=username    ${USERNAME}
+
+Input Password
+    [Documentation]    Input valid password into login form
+    Wait Until Element Is Visible    id=password
+    Input Text    id=password    ${PASSWORD}
+
+Submit Login
+    [Documentation]    Click the login submit button
+    Wait Until Element Is Visible    xpath=//button[@data-cy='login-submit']
+    Click Element    xpath=//button[@data-cy='login-submit']

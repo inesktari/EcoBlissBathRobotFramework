@@ -6,3 +6,5 @@ Documentation       Global variables used across the EcoBlissBath test suites
 ${URL}          http://localhost:8080
 ${BROWSER}      Chrome
 ${TIMEOUT}      10s
+${USERNAME}     test2@test.fr
+${PASSWORD}     testtest
