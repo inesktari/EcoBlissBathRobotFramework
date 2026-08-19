@@ -5,3 +5,4 @@ results/
 log.html
 report.html
 output.xml
+.venv/
