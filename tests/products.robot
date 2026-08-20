@@ -13,4 +13,5 @@ User Can Add Product To Cart
     Input Password
     Submit Login
     Add First Product To Cart
+    Verify Product Is In Cart
     Close Browser Session

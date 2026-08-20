@@ -25,7 +25,10 @@ Add First Product To Cart
     Wait Until Element Is Visible    ${PRODUCT_CARD}    ${TIMEOUT}
     Click Element    ${PRODUCT_DETAILS_LINK}
     Wait Until Element Is Visible    ${ADD_TO_CART_BUTTON}    ${TIMEOUT}
-    Click Element    ${ADD_TO_CART_BUTTON}
+    Element Should Be Enabled    ${ADD_TO_CART_BUTTON}
+    Click Button    ${ADD_TO_CART_BUTTON}
+    Wait Until Element Is Visible    ${CART_ICON}    ${TIMEOUT}
+    Element Should Be Visible    ${CART_ICON}
 
 Open Cart
     [Documentation]    Opens the shopping cart page
@@ -54,3 +57,8 @@ Submit Login
     [Documentation]    Click the login submit button
     Wait Until Element Is Visible    xpath=//button[@data-cy='login-submit']
     Click Element    xpath=//button[@data-cy='login-submit']
+
+Verify Product Is In Cart
+    [Documentation]    Verifies that a product is displayed in the shopping cart
+    Wait Until Element Is Visible    ${CART_PRODUCT_NAME}    ${TIMEOUT}
+    Element Should Be Visible    ${CART_PRODUCT_NAME}
