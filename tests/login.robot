@@ -13,3 +13,4 @@ User Can Login With Valid Credentials
     Submit Login
     Wait Until Element Is Visible    ${LOGOUT_LINK}
     Element Should Be Visible    ${LOGOUT_LINK}
+    Close Browser Session
