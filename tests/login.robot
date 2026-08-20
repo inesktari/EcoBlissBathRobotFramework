@@ -11,5 +11,5 @@ User Can Login With Valid Credentials
     Input Username
     Input Password
     Submit Login
-    Wait Until Element Is Visible    xpath=//a[@data-cy='nav-link-logout']
-    Element Should Be Visible    xpath=//a[@data-cy='nav-link-logout']
+    Wait Until Element Is Visible    ${LOGOUT_LINK}
+    Element Should Be Visible    ${LOGOUT_LINK}
