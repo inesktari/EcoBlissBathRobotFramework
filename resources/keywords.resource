@@ -23,6 +23,8 @@ Verify Home Page Title
 Add First Product To Cart
     [Documentation]    Adds the first visible product on the homepage to the cart
     Wait Until Element Is Visible    ${PRODUCT_CARD}    ${TIMEOUT}
+    Click Element    ${PRODUCT_DETAILS_LINK}
+    Wait Until Element Is Visible    ${ADD_TO_CART_BUTTON}    ${TIMEOUT}
     Click Element    ${ADD_TO_CART_BUTTON}
 
 Open Cart
@@ -33,6 +35,10 @@ Open Login Page
     [Documentation]    Navigate to the login page
     Open Browser    ${URL}#/login    ${BROWSER}
     Maximize Browser Window
+
+Go To Login Page
+    [Documentation]    Navigates to the login page in the current browser session
+    Go To    ${URL}#/login
 
 Input Username
     [Documentation]    Input valid username into login form
