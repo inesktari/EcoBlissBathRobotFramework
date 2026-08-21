@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Test suite for EcoBlissBath product features
 
-Resource            ../resources/keywords.resource
+Resource            ../../resources/keywords.resource
 
 
 *** Test Cases ***

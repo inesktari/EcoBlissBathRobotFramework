@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Test suite for authentication features
 
-Resource            ../resources/keywords.resource
+Resource            ../../resources/keywords.resource
 
 
 *** Test Cases ***

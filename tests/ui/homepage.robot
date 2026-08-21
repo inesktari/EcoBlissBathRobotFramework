@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Tests for EcoBlissBath homepage
 
-Resource            ../resources/keywords.resource
+Resource            ../../resources/keywords.resource
 
 
 *** Test Cases ***
