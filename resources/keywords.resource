@@ -93,3 +93,7 @@ Cart Line Total Should Have Changed
     [Arguments]    ${initial_total}
     ${current_total}=    Get Text    ${CART_LINE_TOTAL}
     Should Not Be Equal    ${current_total}    ${initial_total}
+
+Verify Cart Total Updates
+    [Arguments]    ${initial_total}
+    Wait Until Keyword Succeeds    ${TIMEOUT}    200ms    Cart Line Total Should Have Changed    ${initial_total}
