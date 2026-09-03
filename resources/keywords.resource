@@ -77,3 +77,19 @@ Clear Shopping Cart
         ${delete_count}=    Get Element Count    ${CART_DELETE_BUTTON}
     END
 
+Verify Cart Line Total
+    [Documentation]    Verifies that the product line total is displayed in the shopping cart
+    Wait Until Element Is Visible    ${CART_LINE_TOTAL}    ${TIMEOUT}
+    ${initial_total}=    Get Text    ${CART_LINE_TOTAL}
+    RETURN    ${initial_total}
+
+Increase Product Quantity In Cart
+    [Documentation]    Increases the product quantity in the shopping cart
+    ${current_quantity}=    Get Value    ${CART_PRODUCT_QUANTITY}
+    ${new_quantity}=    Evaluate    int(${current_quantity}) + 1
+    Press Keys    ${CART_PRODUCT_QUANTITY}    ARROW_UP
+
+Cart Line Total Should Have Changed
+    [Arguments]    ${initial_total}
+    ${current_total}=    Get Text    ${CART_LINE_TOTAL}
+    Should Not Be Equal    ${current_total}    ${initial_total}

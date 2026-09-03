@@ -17,6 +17,8 @@ Logged In User Can View Product In Cart
     Go To    ${URL}
     Add First Product To Cart
     Verify Product Is In Cart
-    Verify Product Quantity In Cart
+    ${initial_total}=    Verify Cart Line Total
+    Increase Product Quantity In Cart
+    Wait Until Keyword Succeeds    ${TIMEOUT}    200ms    Cart Line Total Should Have Changed    ${initial_total}
     Close Browser Session
     
