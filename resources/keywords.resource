@@ -32,6 +32,7 @@ Add First Product To Cart
 
 Open Cart
     [Documentation]    Opens the shopping cart page
+    Wait Until Element Is Visible    ${CART_ICON}    ${TIMEOUT}
     Click Element    ${CART_ICON}
 
 Open Login Page
@@ -62,3 +63,17 @@ Verify Product Is In Cart
     [Documentation]    Verifies that a product is displayed in the shopping cart
     Wait Until Element Is Visible    ${CART_PRODUCT_NAME}    ${TIMEOUT}
     Element Should Be Visible    ${CART_PRODUCT_NAME}
+
+Verify Product Quantity In Cart
+    [Documentation]    Verifies the product quantity displayed in the shopping cart
+    Wait Until Element Is Visible    ${CART_PRODUCT_QUANTITY}    ${TIMEOUT}
+    Textfield Value Should Be    ${CART_PRODUCT_QUANTITY}    1
+
+Clear Shopping Cart
+    [Documentation]    Removes all products from the shopping cart
+     ${delete_count}=    Get Element Count    ${CART_DELETE_BUTTON}
+    WHILE    ${delete_count} > 0
+        Click Element    ${CART_DELETE_BUTTON}
+        ${delete_count}=    Get Element Count    ${CART_DELETE_BUTTON}
+    END
+

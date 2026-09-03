@@ -12,7 +12,11 @@ Logged In User Can View Product In Cart
     Input Username
     Input Password
     Submit Login
+    Open Cart
+    Clear Shopping Cart
+    Go To    ${URL}
     Add First Product To Cart
     Verify Product Is In Cart
+    Verify Product Quantity In Cart
     Close Browser Session
     
