@@ -112,3 +112,9 @@ Verify Product Is Removed From Cart
     ...    xpath=//*[@data-cy="cart-line-name" and normalize-space(.)="${product_name}"]
     ...    ${TIMEOUT}
     
+Decrease Product Quantity In Cart
+    [Documentation]    Decreases the product quantity in the shopping cart
+    ${current_quantity}=    Get Value    ${CART_PRODUCT_QUANTITY}
+    Press Keys    ${CART_PRODUCT_QUANTITY}    ARROW_DOWN
+    ${expected_quantity}=    Evaluate    int(${current_quantity}) - 1
+    RETURN    ${expected_quantity}
