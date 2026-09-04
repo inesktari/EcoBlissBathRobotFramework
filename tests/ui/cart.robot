@@ -92,3 +92,19 @@ Logged In User Cannot Decrease Quantity Below One
     Press Keys    ${CART_PRODUCT_QUANTITY}    ARROW_DOWN
     Textfield Value Should Be    ${CART_PRODUCT_QUANTITY}    1
     Close Browser Session
+
+Logged In User Can Access Checkout
+    [Documentation]    Verify that checkout is available when the shopping cart contains a product.
+    Open EcoBlissBath Website
+    Go To Login Page
+    Input Username
+    Input Password
+    Submit Login
+    Open Cart
+    Clear Shopping Cart
+    Go To    ${URL}
+    Add First Product To Cart
+    Open Cart
+    Verify Checkout Is Available
+    Close Browser Session
+    

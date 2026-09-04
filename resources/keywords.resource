@@ -149,3 +149,9 @@ Cart Delete Button Count Should Be
     [Arguments]    ${expected_count}
     ${actual_count}=    Get Element Count    ${CART_DELETE_BUTTON}
     Should Be Equal As Integers    ${actual_count}    ${expected_count}
+
+Verify Checkout Is Available
+    [Documentation]    Verifies that checkout is available for a non-empty shopping cart
+    Wait Until Element Is Visible    ${CHECKOUT_BUTTON}    ${TIMEOUT}
+    Element Should Be Enabled    ${CHECKOUT_BUTTON}
+    
