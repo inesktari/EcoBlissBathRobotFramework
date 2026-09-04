@@ -97,3 +97,17 @@ Cart Line Total Should Have Changed
 Verify Cart Total Updates
     [Arguments]    ${initial_total}
     Wait Until Keyword Succeeds    ${TIMEOUT}    200ms    Cart Line Total Should Have Changed    ${initial_total}
+
+Remove Product From Cart
+    [Documentation]    Removes a product from the shopping cart
+    ${product_name}=    Get Text    ${CART_PRODUCT_NAME}
+    Click Element    ${CART_DELETE_BUTTON}
+    RETURN    ${product_name}
+
+Verify Product Is Removed From Cart
+    [Arguments]    ${product_name}
+    [Documentation]    Verifies that the removed product is no longer displayed in the shopping cart
+    Wait Until Page Does Not Contain Element
+    ...    xpath=//*[@data-cy="cart-line-name" and normalize-space(.)="${product_name}"]
+    ...    ${TIMEOUT}
+    
