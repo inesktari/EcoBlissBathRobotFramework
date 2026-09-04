@@ -88,6 +88,7 @@ Logged In User Cannot Decrease Quantity Below One
     Go To    ${URL}
     Add First Product To Cart
     Open Cart
+    Wait Until Element Is Visible    ${CART_PRODUCT_QUANTITY}    ${TIMEOUT}
     Textfield Value Should Be    ${CART_PRODUCT_QUANTITY}    1
     Press Keys    ${CART_PRODUCT_QUANTITY}    ARROW_DOWN
     Textfield Value Should Be    ${CART_PRODUCT_QUANTITY}    1
@@ -107,4 +108,20 @@ Logged In User Can Access Checkout
     Open Cart
     Verify Checkout Is Available
     Close Browser Session
-    
+
+Logged In User Can Submit Valid Order
+    [Documentation]    Verify that a logged-in user can submit an order with valid checkout information.
+    Open EcoBlissBath Website
+    Go To Login Page
+    Input Username
+    Input Password
+    Submit Login
+    Open Cart
+    Clear Shopping Cart
+    Go To    ${URL}
+    Add First Product To Cart
+    Open Cart
+    Fill Checkout Form
+    Click Element    ${CHECKOUT_BUTTON}
+    Wait Until Location Is    ${URL}/#/confirmation    ${TIMEOUT}
+    Close Browser Session

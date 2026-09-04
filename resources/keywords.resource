@@ -154,4 +154,12 @@ Verify Checkout Is Available
     [Documentation]    Verifies that checkout is available for a non-empty shopping cart
     Wait Until Element Is Visible    ${CHECKOUT_BUTTON}    ${TIMEOUT}
     Element Should Be Enabled    ${CHECKOUT_BUTTON}
-    
+
+Fill Checkout Form
+    [Documentation]    Fills in the checkout form with valid customer information
+     Wait Until Element Is Visible    ${CHECKOUT_LASTNAME}    ${TIMEOUT}
+    Input Text    ${CHECKOUT_LASTNAME}    Test
+    Input Text    ${CHECKOUT_FIRSTNAME}    User
+    Input Text    ${CHECKOUT_ADDRESS}    1 rue de Test
+    Input Text    ${CHECKOUT_ZIPCODE}    75001
+    Input Text    ${CHECKOUT_CITY}    Paris
