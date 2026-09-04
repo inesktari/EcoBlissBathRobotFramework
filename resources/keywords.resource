@@ -69,12 +69,33 @@ Verify Product Quantity In Cart
     Wait Until Element Is Visible    ${CART_PRODUCT_QUANTITY}    ${TIMEOUT}
     Textfield Value Should Be    ${CART_PRODUCT_QUANTITY}    1
 
+Cart State Should Be Stable
+    [Documentation]    Verifies that cart line count remains stable while the cart finishes loading
+    ${first_count}=    Get Element Count    ${CART_LINE}
+    Sleep    700ms
+    ${second_count}=    Get Element Count    ${CART_LINE}
+    Should Be Equal As Integers    ${first_count}    ${second_count}
+
 Clear Shopping Cart
     [Documentation]    Removes all products from the shopping cart
-     ${delete_count}=    Get Element Count    ${CART_DELETE_BUTTON}
+    Wait Until Keyword Succeeds
+    ...    ${TIMEOUT}
+    ...    500ms
+    ...    Cart State Should Be Stable
+
+    ${delete_count}=    Get Element Count    ${CART_DELETE_BUTTON}
+
     WHILE    ${delete_count} > 0
         Click Element    ${CART_DELETE_BUTTON}
-        ${delete_count}=    Get Element Count    ${CART_DELETE_BUTTON}
+        ${expected_count}=    Evaluate    ${delete_count} - 1
+
+        Wait Until Keyword Succeeds
+        ...    ${TIMEOUT}
+        ...    200ms
+        ...    Cart Delete Button Count Should Be
+        ...    ${expected_count}
+
+        ${delete_count}=    Set Variable    ${expected_count}
     END
 
 Verify Cart Line Total
@@ -118,3 +139,13 @@ Decrease Product Quantity In Cart
     Press Keys    ${CART_PRODUCT_QUANTITY}    ARROW_DOWN
     ${expected_quantity}=    Evaluate    int(${current_quantity}) - 1
     RETURN    ${expected_quantity}
+
+Verify Shopping Cart Is Empty
+    [Documentation]    Verifies that no product remains in the shopping cart
+    ${product_count}=    Get Element Count    ${CART_PRODUCT_NAME}
+    Should Be Equal As Integers    ${product_count}    0
+
+Cart Delete Button Count Should Be
+    [Arguments]    ${expected_count}
+    ${actual_count}=    Get Element Count    ${CART_DELETE_BUTTON}
+    Should Be Equal As Integers    ${actual_count}    ${expected_count}

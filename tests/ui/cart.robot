@@ -66,7 +66,29 @@ Logged In User Can Decrease Product Quantity
     Go To    ${URL}
     Add First Product To Cart
     Open Cart
+    ${initial_total}=    Verify Cart Line Total
     Increase Product Quantity In Cart
+    Verify Cart Total Updates    ${initial_total}
+    ${increased_total}=    Verify Cart Line Total
     ${expected_quantity}=    Decrease Product Quantity In Cart
+    Verify Cart Total Updates    ${increased_total}
     Textfield Value Should Be    ${CART_PRODUCT_QUANTITY}    ${expected_quantity}
+    Close Browser Session
+
+Logged In User Cannot Decrease Quantity Below One
+    [Documentation]    Verify that product quantity cannot be decreased below one.
+    Open EcoBlissBath Website
+    Go To Login Page
+    Input Username
+    Input Password
+    Submit Login
+    Open Cart
+    Clear Shopping Cart
+    Verify Shopping Cart Is Empty
+    Go To    ${URL}
+    Add First Product To Cart
+    Open Cart
+    Textfield Value Should Be    ${CART_PRODUCT_QUANTITY}    1
+    Press Keys    ${CART_PRODUCT_QUANTITY}    ARROW_DOWN
+    Textfield Value Should Be    ${CART_PRODUCT_QUANTITY}    1
     Close Browser Session
