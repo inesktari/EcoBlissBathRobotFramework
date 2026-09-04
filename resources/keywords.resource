@@ -88,6 +88,7 @@ Increase Product Quantity In Cart
     ${current_quantity}=    Get Value    ${CART_PRODUCT_QUANTITY}
     ${new_quantity}=    Evaluate    int(${current_quantity}) + 1
     Press Keys    ${CART_PRODUCT_QUANTITY}    ARROW_UP
+    RETURN    ${new_quantity}
 
 Cart Line Total Should Have Changed
     [Arguments]    ${initial_total}

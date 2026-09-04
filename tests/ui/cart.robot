@@ -37,3 +37,19 @@ Logged In User Can Remove Product From Cart
     ${removed_product}=    Remove Product From Cart
     Verify Product Is Removed From Cart    ${removed_product}
     Close Browser Session
+
+Logged In User Can Update Product Quantity
+    [Documentation]    Verify that a logged-in user can update a product quantity in the shopping cart.
+    Open EcoBlissBath Website
+    Go To Login Page
+    Input Username
+    Input Password
+    Submit Login
+    Open Cart
+    Clear Shopping Cart
+    Go To    ${URL}
+    Add First Product To Cart
+    Open Cart
+    ${expected_quantity}=    Increase Product Quantity In Cart
+    Textfield Value Should Be    ${CART_PRODUCT_QUANTITY}    ${expected_quantity}
+    Close Browser Session
