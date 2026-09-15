@@ -3,6 +3,7 @@ Documentation       Test suite for authentication features
 
 Resource            ../../resources/keywords.resource
 
+Test Teardown     Close Browser Session
 
 *** Test Cases ***
 User Can Login With Valid Credentials
@@ -11,6 +12,4 @@ User Can Login With Valid Credentials
     Input Username
     Input Password
     Submit Login
-    Wait Until Element Is Visible    ${LOGOUT_LINK}
-    Element Should Be Visible    ${LOGOUT_LINK}
-    Close Browser Session
+    Verify User Is Logged In

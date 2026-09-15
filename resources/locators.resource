@@ -4,6 +4,7 @@ Documentation       Centralized UI locators for the EcoBlissBath application.
 
 *** Variables ***
 ${HOME_TITLE}               EcoBlissBath
+${HOME_LOGO}    xpath=//a[@data-cy='nav-link-home-logo']/img
 ${PRODUCT_CARD}    css:[data-cy="product-home"]
 ${PRODUCT_DETAILS_LINK}      css:[data-cy="product-home-link"]
 ${ADD_TO_CART_BUTTON}        css:[data-cy="detail-product-add"]

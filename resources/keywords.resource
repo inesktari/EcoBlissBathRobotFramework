@@ -20,6 +20,24 @@ Verify Home Page Title
     [Documentation]    Verifies that the homepage title matches the expected value
     Title Should Be    ${HOME_TITLE}
 
+Verify Home Page Logo Is Visible
+    [Documentation]    Verifies that the EcoBlissBath logo is visible on the homepage
+    Wait Until Element Is Visible    ${HOME_LOGO}    ${TIMEOUT}
+    Element Should Be Visible    ${HOME_LOGO}
+
+Verify User Is Logged In
+    [Documentation]    Verifies that the user is successfully logged in
+    Wait Until Element Is Visible    ${LOGOUT_LINK}    ${TIMEOUT}
+    Element Should Be Visible    ${LOGOUT_LINK}
+
+Login As Valid User
+    [Documentation]    Logs in with valid user credentials
+    Go To Login Page
+    Input Username
+    Input Password
+    Submit Login
+    Verify User Is Logged In
+
 Add First Product To Cart
     [Documentation]    Adds the first visible product on the homepage to the cart
     Wait Until Element Is Visible    ${PRODUCT_CARD}    ${TIMEOUT}
