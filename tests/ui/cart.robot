@@ -11,8 +11,7 @@ Logged In User Can View Product In Cart
     [Documentation]    Verify that a logged-in user can view an added product in the shopping cart.
     Open EcoBlissBath Website
     Login As Valid User
-    Open Cart
-    Clear Shopping Cart
+    Prepare Empty Shopping Cart
     Go To    ${URL}
     Add First Product To Cart
     Verify Product Is In Cart
@@ -24,8 +23,7 @@ Logged In User Can Remove Product From Cart
     [Documentation]    Verify that a logged-in user can remove a product from the shopping cart.
     Open EcoBlissBath Website
     Login As Valid User
-    Open Cart
-    Clear Shopping Cart
+    Prepare Empty Shopping Cart
     Go To    ${URL}
     Add First Product To Cart
     Verify Product Is In Cart
@@ -36,8 +34,7 @@ Logged In User Can Update Product Quantity
     [Documentation]    Verify that a logged-in user can update a product quantity in the shopping cart.
     Open EcoBlissBath Website
     Login As Valid User
-    Open Cart
-    Clear Shopping Cart
+    Prepare Empty Shopping Cart
     Go To    ${URL}
     Add First Product To Cart
     Open Cart
@@ -48,8 +45,7 @@ Logged In User Can Decrease Product Quantity
     [Documentation]    Verify that a logged-in user can decrease a product quantity in the shopping cart.
     Open EcoBlissBath Website
     Login As Valid User
-    Open Cart
-    Clear Shopping Cart
+    Prepare Empty Shopping Cart
     Go To    ${URL}
     Add First Product To Cart
     Open Cart
@@ -65,8 +61,7 @@ Logged In User Cannot Decrease Quantity Below One
     [Documentation]    Verify that product quantity cannot be decreased below one.
     Open EcoBlissBath Website
     Login As Valid User
-    Open Cart
-    Clear Shopping Cart
+    Prepare Empty Shopping Cart
     Verify Shopping Cart Is Empty
     Go To    ${URL}
     Add First Product To Cart
@@ -80,8 +75,7 @@ Logged In User Can Access Checkout
     [Documentation]    Verify that checkout is available when the shopping cart contains a product.
     Open EcoBlissBath Website
     Login As Valid User
-    Open Cart
-    Clear Shopping Cart
+    Prepare Empty Shopping Cart
     Go To    ${URL}
     Add First Product To Cart
     Open Cart
@@ -91,8 +85,7 @@ Logged In User Can Submit Valid Order
     [Documentation]    Verify that a logged-in user can submit an order with valid checkout information.
     Open EcoBlissBath Website
     Login As Valid User
-    Open Cart
-    Clear Shopping Cart
+    Prepare Empty Shopping Cart
     Go To    ${URL}
     Add First Product To Cart
     Open Cart

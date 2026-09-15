@@ -181,3 +181,9 @@ Fill Checkout Form
     Input Text    ${CHECKOUT_ADDRESS}    1 rue de Test
     Input Text    ${CHECKOUT_ZIPCODE}    75001
     Input Text    ${CHECKOUT_CITY}    Paris
+
+Prepare Empty Shopping Cart
+    [Documentation]    Opens the cart and removes all existing products
+    Open Cart
+    Clear Shopping Cart
+    
