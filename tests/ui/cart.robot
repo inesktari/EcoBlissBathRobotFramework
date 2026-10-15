@@ -11,8 +11,10 @@ Logged In User Can Update Cart Total When Quantity Increases
     Add First Product From Homepage
     Verify Product Is In Cart
     ${initial_total}=    Verify Cart Line Total
-    Increase Product Quantity In Cart
-    Verify Cart Total Updates    ${initial_total}
+    ${unit_price}=    Convert Euro Price To Number    ${initial_total}
+    ${expected_quantity}=    Increase Product Quantity In Cart
+    ${expected_total}=    Evaluate    $unit_price * $expected_quantity
+    Wait Until Cart Line Total Is    ${expected_total}
 
 Logged In User Can Remove Product From Cart
     [Documentation]    Verify that a logged-in user can remove a product from the shopping cart.  
@@ -33,11 +35,14 @@ Logged In User Can Update Cart Total When Quantity Decreases
     Add First Product From Homepage
     Open Cart
     ${initial_total}=    Verify Cart Line Total
-    Increase Product Quantity In Cart
-    Verify Cart Total Updates    ${initial_total}
-    ${increased_total}=    Verify Cart Line Total
+    ${unit_price}=    Convert Euro Price To Number    ${initial_total}
+    
+    ${increased_quantity}=    Increase Product Quantity In Cart
+    ${increased_total}=    Evaluate    $unit_price * $increased_quantity
+    Wait Until Cart Line Total Is    ${increased_total}
     ${expected_quantity}=    Decrease Product Quantity In Cart
-    Verify Cart Total Updates    ${increased_total}
+    ${expected_total}=    Evaluate    $unit_price * $expected_quantity
+    Wait Until Cart Line Total Is    ${expected_total}
     Verify Product Quantity In Cart Is    ${expected_quantity}
 
 Logged In User Cannot Decrease Quantity Below One
