@@ -45,7 +45,7 @@ Logged In User Cannot Decrease Quantity Below One
     Add First Product From Homepage
     Open Cart
     Verify Product Quantity In Cart Is    1    
-    Press Keys    ${CART_PRODUCT_QUANTITY}    ARROW_DOWN
+    Attempt To Decrease Product Quantity Below One
     Verify Product Quantity In Cart Is    1
 
 Logged In User Can Access Checkout
@@ -59,5 +59,5 @@ Logged In User Can Submit Valid Order
     Add First Product From Homepage
     Open Cart
     Fill Checkout Form
-    Click Element    ${CHECKOUT_BUTTON}
-    Wait Until Location Is    ${URL}/#/confirmation    ${TIMEOUT}
+    Submit Checkout Order
+    Verify Order Confirmation Page

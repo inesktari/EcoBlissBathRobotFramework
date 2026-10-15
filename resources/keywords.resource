@@ -203,3 +203,15 @@ Verify Product Quantity In Cart Is
     [Arguments]    ${expected_quantity}
     Wait Until Element Is Visible    ${CART_PRODUCT_QUANTITY}    ${TIMEOUT}
     Textfield Value Should Be    ${CART_PRODUCT_QUANTITY}    ${expected_quantity}
+
+Attempt To Decrease Product Quantity Below One
+    [Documentation]    Attempts to decrease the cart product quantity below the minimum of one
+    Press Keys    ${CART_PRODUCT_QUANTITY}    ARROW_DOWN
+
+Submit Checkout Order
+    [Documentation]    Submits the checkout form
+    Click Element    ${CHECKOUT_BUTTON}
+
+Verify Order Confirmation Page
+    [Documentation]    Verifies that the user is redirected to the order confirmation page
+    Wait Until Location Is    ${URL}/#/confirmation    ${TIMEOUT}
