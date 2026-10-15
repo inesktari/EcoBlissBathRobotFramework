@@ -192,3 +192,8 @@ Start With Empty Cart
     Open EcoBlissBath Website
     Login As Valid User
     Prepare Empty Shopping Cart
+
+Add First Product From Homepage
+    [Documentation]    Navigates to the homepage and adds the first product to the cart
+    Go To    ${URL}
+    Add First Product To Cart
