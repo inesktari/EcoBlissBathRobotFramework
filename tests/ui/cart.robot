@@ -6,8 +6,8 @@ Test Setup       Start With Empty Cart
 Test Teardown     Close Browser Session
 
 *** Test Cases ***
-Logged In User Can View Product In Cart
-    [Documentation]    Verify that a logged-in user can view an added product in the shopping cart.
+Logged In User Can Update Cart Total When Quantity Increases
+    [Documentation]    Verify that the cart total updates when the product quantity increases.
     Add First Product From Homepage
     Verify Product Is In Cart
     ${initial_total}=    Verify Cart Line Total
@@ -28,8 +28,8 @@ Logged In User Can Update Product Quantity
     ${expected_quantity}=    Increase Product Quantity In Cart 
     Verify Product Quantity In Cart Is    ${expected_quantity}
 
-Logged In User Can Decrease Product Quantity
-    [Documentation]    Verify that a logged-in user can decrease a product quantity in the shopping cart.
+Logged In User Can Update Cart Total When Quantity Decreases
+    [Documentation]    Verify that the cart total updates when the product quantity decreases.
     Add First Product From Homepage
     Open Cart
     ${initial_total}=    Verify Cart Line Total
