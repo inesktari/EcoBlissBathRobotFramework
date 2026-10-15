@@ -25,8 +25,8 @@ Logged In User Can Update Product Quantity
     [Documentation]    Verify that a logged-in user can update a product quantity in the shopping cart.
     Add First Product From Homepage
     Open Cart
-    ${expected_quantity}=    Increase Product Quantity In Cart
-    Textfield Value Should Be    ${CART_PRODUCT_QUANTITY}    ${expected_quantity}
+    ${expected_quantity}=    Increase Product Quantity In Cart 
+    Verify Product Quantity In Cart Is    ${expected_quantity}
 
 Logged In User Can Decrease Product Quantity
     [Documentation]    Verify that a logged-in user can decrease a product quantity in the shopping cart.
@@ -38,16 +38,15 @@ Logged In User Can Decrease Product Quantity
     ${increased_total}=    Verify Cart Line Total
     ${expected_quantity}=    Decrease Product Quantity In Cart
     Verify Cart Total Updates    ${increased_total}
-    Textfield Value Should Be    ${CART_PRODUCT_QUANTITY}    ${expected_quantity}
+    Verify Product Quantity In Cart Is    ${expected_quantity}
 
 Logged In User Cannot Decrease Quantity Below One
     [Documentation]    Verify that product quantity cannot be decreased below one.
     Add First Product From Homepage
     Open Cart
-    Wait Until Element Is Visible    ${CART_PRODUCT_QUANTITY}    ${TIMEOUT}
-    Textfield Value Should Be    ${CART_PRODUCT_QUANTITY}    1
+    Verify Product Quantity In Cart Is    1    
     Press Keys    ${CART_PRODUCT_QUANTITY}    ARROW_DOWN
-    Textfield Value Should Be    ${CART_PRODUCT_QUANTITY}    1
+    Verify Product Quantity In Cart Is    1
 
 Logged In User Can Access Checkout
     [Documentation]    Verify that checkout is available when the shopping cart contains a product.

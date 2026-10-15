@@ -197,3 +197,9 @@ Add First Product From Homepage
     [Documentation]    Navigates to the homepage and adds the first product to the cart
     Go To    ${URL}
     Add First Product To Cart
+
+Verify Product Quantity In Cart Is
+    [Documentation]    Verifies that the cart product quantity matches the expected value
+    [Arguments]    ${expected_quantity}
+    Wait Until Element Is Visible    ${CART_PRODUCT_QUANTITY}    ${TIMEOUT}
+    Textfield Value Should Be    ${CART_PRODUCT_QUANTITY}    ${expected_quantity}
