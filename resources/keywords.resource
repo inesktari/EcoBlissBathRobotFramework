@@ -187,3 +187,8 @@ Prepare Empty Shopping Cart
     Open Cart
     Clear Shopping Cart
     
+Start With Empty Cart
+    [Documentation]    Opens the website, logs in, and prepares an empty shopping cart
+    Open EcoBlissBath Website
+    Login As Valid User
+    Prepare Empty Shopping Cart
