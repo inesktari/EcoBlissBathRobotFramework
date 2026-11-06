@@ -1,55 +1,66 @@
 # EcoBlissBath
-Eco Bliss Bath est une start-up de 20 personnes, spécialisée dans la vente de produits de beauté écoresponsables dont le produit principal est un savon solide.
-La strat-up met en avant une large gamme de savons solides avec des fonctionnalités telles que :
-- Une interface intuitive pour les utilisateurs.
-- Une gestion des stocks dynamique.
-- Une intégration d'API pour gérer les commandes des utilisateurs.
+EcoBlissBath est une application e-commerce de produits de beauté écoresponsables, développée dans le cadre d'un projet pédagogique OpenClassrooms.
+
+Ce dépôt présente l'automatisation des tests fonctionnels de l'application avec **Robot Framework** et **SeleniumLibrary**, selon une démarche qualité inspirée des bonnes pratiques ISTQB.
+
+**Objectifs :** valider les parcours utilisateurs, vérifier les règles métier et détecter les régressions.
+
+## Couverture des tests
+Les **tests UI automatisés** couvrent :
+- Affichage de la page d'accueil et authentification.
+- Ajout et suppression de produits dans le panier.
+- Augmentation et diminution des quantités.
+- Vérification de la quantité minimale autorisée.
+- Contrôle des montants exacts après modification des quantités.
+- Validation d'une commande.
+
+Les tests utilisent des keywords réutilisables, des locators centralisés et des mécanismes Setup/Teardown pour améliorer leur maintenabilité.
 
 ## Installation
-### Prérequis
-Pour le lancement du projet vous aurez besoin de :
-- Docker,
-- Un navigateur moderne,
-- Robot Framework...
+### Prérequis :
+Git, Docker, Python et un navigateur compatible Selenium.
 
-### Étapes
-#### 1. Téléchargez ou clonez le dépôt depuis :
-https://github.com/OpenClassrooms-Student-Center/TesteurLogiciel_Automatisez_des_tests_pour_une_boutique_en_ligne
+### Cloner le dépôt :
+git clone https://github.com/inesktari/EcoBlissBathRobotFramework.git
+cd EcoBlissBathRobotFramework
 
-#### 2. Déploiement :
-Ouvrez un terminal dans le dossier du projet, puis exécutez la commande :<br>
-**docker-compose up --build**
+### Démarrer l'application :
+docker compose up --build
 
-#### 3. Installez les dépendances :
+### Installer les dépendances Python :
+python -m venv .venv
+python -m pip install robotframework robotframework-seleniumlibrary
 
-#### 4. Lancez l'application :
+### Application :
+http://localhost:8080
 
-#### 5. Accédez à l'application :
-Depuis le navigateur en saisissant l'URL :<br>
-**http://localhost:8080/**
+### Documentation API :
+http://localhost:8081/api/doc/
 
-#### 6. Accédez à la documentation de l'API :
-Depuis le navigateur en saisissant l'URL :<br>
-**http://localhost:8081/api/doc/**
+## Exécution des tests
+Pour exécuter les scénarios nécessitant une authentification, utiliser le compte de démonstration suivant :
+**Identifiant :** test2@test.fr
+**Mot de passe :** testtest
 
-#### 7. Login :
-**identifiant**: test2@test.fr<br>
-**mot de passe**: testtest
+Lancer tous les tests UI :
+python -m robot --outputdir results tests/ui/
 
-## Procédure pour lancer les tests automatiques :
-### Installation de Robot Framework :<br>
-...
-### Lancement de Robot Framework :<br>
-...
-### Génération des rapports de tests :
-En utilisant la commande ...
+Lancer uniquement les tests du panier :
+python -m robot --outputdir results tests/ui/cart.robot
 
-## Auteur :
-Ines KAMMOUN KTARI<br>
+Les rapports sont générés automatiquement dans results/ :
+- report.html : synthèse des résultats.
+- log.html : détail des exécutions.
+- output.xml : résultats structurés.
+
+## Améliorations prévues
+- Compléter la couverture des tests fonctionnels avec des scénarios négatifs.
+- Automatiser les tests API avec Robot Framework.
+- Améliorer progressivement la robustesse et la maintenabilité des tests.
+
+## Historique des versions
+- **v1.0.0 :** Tests fonctionnels manuels.
+- **v2.0.0 :** Automatisation des tests UI avec Robot Framework et SeleniumLibrary.
+## Auteur
+Ines KAMMOUN KTARI
 ineskammoun24@hotmail.fr
-
-## Historique des versions :
-- **v1.0.0** : Tests manuels.<br>
-- **v2.0.0** : Tests automatisés avec Robot Framework.
-
-
