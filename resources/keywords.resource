@@ -228,3 +228,20 @@ Wait Until Cart Line Total Is
     ...    ${TIMEOUT}
     ...    200ms
     ...    Cart Line Total Should Be    ${expected_total}
+
+Verify Invalid Login Error Message
+    [Documentation]    Verifies the error message displayed after invalid login.
+    Wait Until Element Is Visible    ${LOGIN_ERROR_MESSAGE}    ${TIMEOUT}
+    Element Text Should Be    ${LOGIN_ERROR_MESSAGE}    Identifiants incorrects
+
+Verify Login Field Labels Have Error Class
+    [Documentation]    Verifies that both login field labels indicate an error.
+    ${email_class}=    Get Element Attribute    css=label[for="username"]    class
+    ${password_class}=    Get Element Attribute    css=label[for="password"]    class
+    Should Contain    ${email_class}    error
+    Should Contain    ${password_class}    error
+
+Verify User Is Not Logged In
+    [Documentation]    Verifies that the user remains logged out.
+    Wait Until Element Is Visible    ${LOGIN_ERROR_MESSAGE}    ${TIMEOUT}
+    Page Should Not Contain Element    ${LOGOUT_LINK}
