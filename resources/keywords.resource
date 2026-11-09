@@ -245,3 +245,8 @@ Verify User Is Not Logged In
     [Documentation]    Verifies that the user remains logged out.
     Wait Until Element Is Visible    ${LOGIN_ERROR_MESSAGE}    ${TIMEOUT}
     Page Should Not Contain Element    ${LOGOUT_LINK}
+
+Verify Required Login Fields Error Message
+    [Documentation]    Verifies the error message when login fields are empty.
+    Wait Until Element Is Visible    ${LOGIN_ERROR_MESSAGE}    ${TIMEOUT}
+    Element Text Should Be    ${LOGIN_ERROR_MESSAGE}    Merci de remplir correctement tous les champs

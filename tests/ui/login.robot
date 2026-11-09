@@ -23,3 +23,11 @@ User Cannot Login With Invalid Password
     Verify Invalid Login Error Message
     Verify Login Field Labels Have Error Class
     Verify User Is Not Logged In
+
+User Cannot Login With Empty Fields
+    [Documentation]    Verify that an error message is displayed when login fields are empty.
+    Open Login Page
+    Submit Login
+    Verify Required Login Fields Error Message
+    Verify Login Field Labels Have Error Class
+    Verify User Is Not Logged In
