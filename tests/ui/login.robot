@@ -31,3 +31,12 @@ User Cannot Login With Empty Fields
     Verify Required Login Fields Error Message
     Verify Login Field Labels Have Error Class
     Verify User Is Not Logged In
+
+User Can Logout From Cart
+    [Documentation]    Verify that a logged-in user can log out from the cart page.
+    Open EcoBlissBath Website
+    Login As Valid User
+    Open Cart
+    Logout User
+    Verify User Is Logged Out
+    Wait Until Location Is    ${URL}/#/    ${TIMEOUT}
