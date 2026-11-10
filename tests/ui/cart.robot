@@ -83,3 +83,13 @@ Logged In User Cannot Submit Order With Empty Required Fields
     Textfield Value Should Be    ${CHECKOUT_LASTNAME}    ${EMPTY}
     Verify Checkout Required Fields Are Invalid
     Location Should Be    ${URL}/#/cart
+
+Logged In User Cannot Submit Order With Short Zip Code
+    [Documentation]    Verify that a 4-character zip code is rejected.
+    [Template]    Verify Order Is Rejected With Invalid Zip Code
+    7500
+
+Logged In User Cannot Submit Order With Long Zip Code
+    [Documentation]    Verify that a 6-character zip code is rejected.
+    [Template]    Verify Order Is Rejected With Invalid Zip Code
+    750001

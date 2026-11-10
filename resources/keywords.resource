@@ -273,3 +273,19 @@ Clear Checkout Field
     [Arguments]    ${locator}
     Click Element    ${locator}
     Press Keys    ${locator}    CTRL+A+BACKSPACE
+
+Verify Checkout Zip Code Is Invalid
+    [Documentation]    Verifies that the checkout zip code is marked as invalid.
+    Wait Until Page Contains Element    css=label[for="zipCode"].error    ${TIMEOUT}
+
+Verify Order Is Rejected With Invalid Zip Code
+    [Documentation]    Verifies that checkout rejects an invalid zip code.
+    [Arguments]    ${zip_code}
+    Add First Product From Homepage
+    Open Cart
+    Fill Checkout Form
+    Clear Checkout Field    ${CHECKOUT_ZIPCODE}
+    Input Text    ${CHECKOUT_ZIPCODE}    ${zip_code}
+    Submit Checkout Order
+    Verify Checkout Zip Code Is Invalid
+    Location Should Be    ${URL}/#/cart
