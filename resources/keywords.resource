@@ -262,3 +262,14 @@ Wait Until Cart Line Total Is
     ...    200ms
     ...    Cart Line Total Should Be    ${expected_total}
 
+Verify Checkout Required Fields Are Invalid
+    [Documentation]    Verifies that all required checkout fields are marked as invalid.
+    FOR    ${field}    IN    lastname    firstname    address    zipCode    city
+        Wait Until Page Contains Element    css=label[for="${field}"].error    ${TIMEOUT}
+    END
+
+Clear Checkout Field
+    [Documentation]    Clears a checkout field using keyboard input.
+    [Arguments]    ${locator}
+    Click Element    ${locator}
+    Press Keys    ${locator}    CTRL+A+BACKSPACE

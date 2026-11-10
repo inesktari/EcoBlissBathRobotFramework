@@ -66,3 +66,20 @@ Logged In User Can Submit Valid Order
     Fill Checkout Form
     Submit Checkout Order
     Verify Order Confirmation Page
+
+Logged In User Cannot Submit Order With Empty Required Fields
+    [Documentation]    Verify that an order cannot be submitted when required fields are empty.
+    Add First Product From Homepage
+    Open Cart
+    Wait Until Element Is Visible    ${CHECKOUT_LASTNAME}    ${TIMEOUT}
+    
+    Clear Checkout Field    ${CHECKOUT_LASTNAME}
+    Clear Checkout Field    ${CHECKOUT_FIRSTNAME}
+    Clear Checkout Field    ${CHECKOUT_ADDRESS}
+    Clear Checkout Field    ${CHECKOUT_ZIPCODE}
+    Clear Checkout Field    ${CHECKOUT_CITY}
+
+    Submit Checkout Order
+    Textfield Value Should Be    ${CHECKOUT_LASTNAME}    ${EMPTY}
+    Verify Checkout Required Fields Are Invalid
+    Location Should Be    ${URL}/#/cart
