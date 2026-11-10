@@ -93,3 +93,16 @@ Logged In User Cannot Submit Order With Long Zip Code
     [Documentation]    Verify that a 6-character zip code is rejected.
     [Template]    Verify Order Is Rejected With Invalid Zip Code
     750001
+
+Logged In User Cannot Submit Order With Alphabetic Zip Code
+    [Documentation]    Verify that checkout rejects alphabetic zip codes.
+    Add First Product From Homepage
+    Open Cart
+    Fill Checkout Form
+    Clear Checkout Field    ${CHECKOUT_ZIPCODE}
+    Input Text    ${CHECKOUT_ZIPCODE}    ABCDE
+    Submit Checkout Order
+    ${status}    ${_}=    Run Keyword And Ignore Error
+    ...    Wait Until Location Is    ${URL}/#/confirmation    ${TIMEOUT}
+    Should Be Equal    ${status}    FAIL    Checkout accepted an alphabetic zip code (ABCDE).
+    Location Should Be    ${URL}/#/cart
