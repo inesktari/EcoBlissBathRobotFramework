@@ -289,3 +289,55 @@ Verify Order Is Rejected With Invalid Zip Code
     Submit Checkout Order
     Verify Checkout Zip Code Is Invalid
     Location Should Be    ${URL}/#/cart
+
+Open First Available Product
+    [Documentation]    Opens the first catalog product with positive stock.
+    Go To    ${URL}/#/products
+    Wait Until Element Is Visible    css:.list-products article.mini-product    ${TIMEOUT}
+
+    ${count}=    Get Element Count    css:.list-products article.mini-product [data-cy="product-link"]
+
+    FOR    ${index}    IN RANGE    ${count}
+        Go To    ${URL}/#/products
+        Wait Until Element Is Visible    css:.list-products article.mini-product    ${TIMEOUT}
+
+        @{links}=    Get WebElements    css:.list-products article.mini-product [data-cy="product-link"]
+        Click Element    ${links}[${index}]
+
+        Wait Until Element Is Visible    ${PRODUCT_STOCK}    ${TIMEOUT}
+        ${stock_text}=    Get Text    ${PRODUCT_STOCK}
+        ${stock}=    Evaluate    int($stock_text.split()[0])
+
+        IF    ${stock} > 0
+            ${product_name}=    Get Text    css:[data-cy="detail-product-name"]
+            ${product_url}=    Get Location
+            RETURN    ${product_name}    ${product_url}
+        END
+    END
+
+    Skip    No product with positive stock is available for this test.
+
+Enter Product Quantity
+    [Arguments]    ${quantity}
+    Clear Element Text    ${PRODUCT_QUANTITY}
+    Input Text    ${PRODUCT_QUANTITY}    ${quantity}
+
+Attempt To Add Product To Cart
+    Click Element    ${ADD_TO_CART_BUTTON}
+
+Verify Product Was Not Added To Cart
+    [Arguments]    ${product_name}    ${product_url}
+    Location Should Be    ${product_url}
+    Go To    ${URL}/#/cart
+    Page Should Not Contain    ${product_name}
+
+Verify Zero Quantity Is Rejected
+    [Arguments]    ${product_name}    ${product_url}
+
+    ${status}    ${message}=    Run Keyword And Ignore Error
+    ...    Wait Until Location Is    ${URL}/#/cart    ${TIMEOUT}
+
+    Should Be Equal As Strings    ${status}    FAIL
+    ...    BUG: A quantity of zero was accepted and the user was redirected to the cart.
+
+    Verify Product Was Not Added To Cart    ${product_name}    ${product_url}

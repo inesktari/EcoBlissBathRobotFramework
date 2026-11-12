@@ -9,7 +9,6 @@ Library    Collections
 *** Test Cases ***
 User Can Add Product To Cart
     [Documentation]    Verify that a logged-in user can add a product to the shopping cart
-    Open EcoBlissBath Website
     Login As Valid User
     Add First Product To Cart
     Verify Product Is In Cart
@@ -49,3 +48,28 @@ Out Of Stock Products Cannot Be Added To Cart
 
     ${problems}=    Evaluate    ", ".join($problematic_products)
     Should Be Empty    ${problematic_products}    Products with stock <= 0 have an enabled Add to Cart button: ${problems}
+
+User Cannot Add Negative Quantity To Cart
+    [Documentation]    Verify that a negative product quantity cannot be added to the cart.
+    Login As Valid User
+    ${product_name}    ${product_url}=    Open First Available Product
+    Enter Product Quantity    -5
+    Attempt To Add Product To Cart
+    Verify Product Was Not Added To Cart    ${product_name}    ${product_url}
+
+User Cannot Add Quantity Above Maximum To Cart
+    [Documentation]    Verify that more than 20 units of the same product cannot be added at once.
+    [Tags]    pending_stock_isolation
+    Login As Valid User
+    ${product_name}    ${product_url}=    Open First Available Product
+    Enter Product Quantity    21
+    Attempt To Add Product To Cart
+    Verify Product Was Not Added To Cart    ${product_name}    ${product_url}
+
+User Cannot Add Zero Quantity To Cart
+    [Documentation]    Verify that a product cannot be added to the cart with a quantity of zero.
+    Login As Valid User
+    ${product_name}    ${product_url}=    Open First Available Product
+    Enter Product Quantity    0
+    Attempt To Add Product To Cart
+    Verify Zero Quantity Is Rejected    ${product_name}    ${product_url}
