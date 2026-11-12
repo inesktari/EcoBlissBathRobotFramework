@@ -7,6 +7,7 @@ ${HOME_TITLE}               EcoBlissBath
 ${HOME_LOGO}    xpath=//a[@data-cy='nav-link-home-logo']/img
 ${PRODUCT_CARD}    css:[data-cy="product-home"]
 ${PRODUCT_DETAILS_LINK}      css:[data-cy="product-home-link"]
+${PRODUCT_STOCK}    css:[data-cy="detail-product-stock"]
 ${ADD_TO_CART_BUTTON}        css:[data-cy="detail-product-add"]
 ${CART_ICON}    css:[data-cy="nav-link-cart"]
 ${CHECKOUT_BUTTON}          css:[data-cy="cart-submit"]
