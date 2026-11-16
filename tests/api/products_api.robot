@@ -2,6 +2,7 @@
 *** Settings ***
 Documentation    API tests for EcoBlissBath products
 Library    RequestsLibrary
+Library    Collections
 Resource    ../../resources/api_keywords.resource
 
 *** Variables ***
@@ -19,6 +20,7 @@ Get Random Products Returns Product List
     ${response}=    Get Random Products
     Should Be Equal As Integers    ${response.status_code}    200
     Should Be True    isinstance($response.json(), list)
+    Length Should Be    ${response.json()}    3
 
 Get Nonexistent Product Returns Status 404
     [Documentation]    Verify that an unknown product returns HTTP 404
