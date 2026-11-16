@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation    Reusable keywords for EcoBlissBath API tests
 Library    RequestsLibrary
+Library    Collections
 
 *** Keywords ***
 Get All Products
@@ -57,3 +58,13 @@ Get All Reviews
     [Documentation]    Retrieve all reviews from the API
     ${response}=    GET    http://localhost:8081/reviews    expected_status=200
     RETURN    ${response}
+
+Validate Product Structure
+    [Documentation]    Verify that a product contains the expected fields.
+    [Arguments]    ${product}
+    Should Be True    isinstance($product, dict)
+    Dictionary Should Contain Key    ${product}    id
+    Dictionary Should Contain Key    ${product}    name
+    Dictionary Should Contain Key    ${product}    description
+    Dictionary Should Contain Key    ${product}    price
+    Dictionary Should Contain Key    ${product}    picture

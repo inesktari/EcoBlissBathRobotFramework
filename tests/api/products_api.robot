@@ -14,13 +14,22 @@ Get Products Returns Status 200
     ${response}=    Get All Products
     Should Be Equal As Integers    ${response.status_code}    200
     Should Be True    isinstance($response.json(), list)
+    ${products}=    Set Variable    ${response.json()}
+    Should Not Be Empty    ${products}
+    FOR    ${product}    IN    @{products}
+        Validate Product Structure    ${product}
+    END
 
 Get Random Products Returns Product List
     [Documentation]    Verify that the random products endpoint returns a product list
     ${response}=    Get Random Products
     Should Be Equal As Integers    ${response.status_code}    200
     Should Be True    isinstance($response.json(), list)
-    Length Should Be    ${response.json()}    3
+    ${products}=    Set Variable    ${response.json()}
+    Length Should Be    ${products}    3
+    FOR    ${product}    IN    @{products}
+        Validate Product Structure    ${product}
+    END
 
 Get Nonexistent Product Returns Status 404
     [Documentation]    Verify that an unknown product returns HTTP 404
@@ -34,4 +43,7 @@ Get Existing Product Returns Status 200
     Should Not Be Empty    ${products}
     ${product_id}=    Set Variable    ${products}[0][id]
     ${response}=    Get Product By ID    ${product_id}
-    Should Be Equal As Integers    ${response.json()}[id]    ${product_id}
+    Should Be Equal As Integers    ${response.status_code}    200
+    ${product}=    Set Variable    ${response.json()}
+    Validate Product Structure    ${product}
+    Should Be Equal As Integers    ${product}[id]    ${product_id}
