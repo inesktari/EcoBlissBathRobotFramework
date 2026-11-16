@@ -36,3 +36,11 @@ Login With Invalid JSON
     ${headers}=    Create Dictionary    Content-Type=application/json
     ${response}=    POST    http://localhost:8081/login    data={"username":    headers=${headers}    expected_status=400
     RETURN    ${response}
+
+Get Current Order
+    [Documentation]    Retrieve the current user's order using Bearer authentication
+    ${login_response}=    Login With Valid Credentials
+    ${token}=    Set Variable    ${login_response.json()}[token]
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
+    ${response}=    GET    http://localhost:8081/orders    headers=${headers}    expected_status=anything
+    RETURN    ${response}
