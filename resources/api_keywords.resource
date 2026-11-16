@@ -52,3 +52,8 @@ Get Current User
     ${headers}=    Create Dictionary    Authorization=Bearer ${token}
     ${response}=    GET    http://localhost:8081/me    headers=${headers}    expected_status=200
     RETURN    ${response}
+
+Get All Reviews
+    [Documentation]    Retrieve all reviews from the API
+    ${response}=    GET    http://localhost:8081/reviews    expected_status=200
+    RETURN    ${response}
