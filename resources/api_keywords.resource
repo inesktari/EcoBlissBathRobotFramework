@@ -44,3 +44,11 @@ Get Current Order
     ${headers}=    Create Dictionary    Authorization=Bearer ${token}
     ${response}=    GET    http://localhost:8081/orders    headers=${headers}    expected_status=anything
     RETURN    ${response}
+
+Get Current User
+    [Documentation]    Retrieve the authenticated user's information
+    ${login_response}=    Login With Valid Credentials
+    ${token}=    Set Variable    ${login_response.json()}[token]
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
+    ${response}=    GET    http://localhost:8081/me    headers=${headers}    expected_status=200
+    RETURN    ${response}
