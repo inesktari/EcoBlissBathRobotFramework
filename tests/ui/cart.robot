@@ -95,6 +95,7 @@ Logged In User Cannot Submit Order With Long Zip Code
     750001
 
 Logged In User Cannot Submit Order With Alphabetic Zip Code
+    [Tags]    known_issue    issue_2
     [Documentation]    Verify that checkout rejects alphabetic zip codes.
     Add First Product From Homepage
     Open Cart

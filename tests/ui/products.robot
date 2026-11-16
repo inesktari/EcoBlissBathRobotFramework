@@ -14,6 +14,7 @@ User Can Add Product To Cart
     Verify Product Is In Cart
 
 Out Of Stock Products Cannot Be Added To Cart
+    [Tags]    known_issue    issue_3
     [Documentation]    Verify that the Add to Cart button is disabled for every product with zero or negative stock.
     Go To    ${URL}/#/products
     Wait Until Element Is Visible    css:.list-products article.mini-product    ${TIMEOUT}
@@ -67,6 +68,7 @@ User Cannot Add Quantity Above Maximum To Cart
     Verify Product Was Not Added To Cart    ${product_name}    ${product_url}
 
 User Cannot Add Zero Quantity To Cart
+    [Tags]    known_issue    issue_4
     [Documentation]    Verify that a product cannot be added to the cart with a quantity of zero.
     Login As Valid User
     ${product_name}    ${product_url}=    Open First Available Product
