@@ -18,3 +18,21 @@ Get Product By ID
     [Arguments]    ${product_id}    ${expected_status}=200
     ${response}=    GET    http://localhost:8081/products/${product_id}    expected_status=${expected_status}
     RETURN    ${response}
+
+Login With Valid Credentials
+    [Documentation]    Authenticate a user with valid credentials
+    ${body}=    Create Dictionary    username=test2@test.fr    password=testtest
+    ${response}=    POST    http://localhost:8081/login    json=${body}    expected_status=200
+    RETURN    ${response}
+
+Login With Invalid Credentials
+    [Documentation]    Attempt authentication with invalid credentials
+    ${body}=    Create Dictionary    username=invalid@example.com    password=wrongpassword
+    ${response}=    POST    http://localhost:8081/login    json=${body}    expected_status=401
+    RETURN    ${response}
+
+Login With Invalid JSON
+    [Documentation]    Send malformed JSON to the login endpoint
+    ${headers}=    Create Dictionary    Content-Type=application/json
+    ${response}=    POST    http://localhost:8081/login    data={"username":    headers=${headers}    expected_status=400
+    RETURN    ${response}
