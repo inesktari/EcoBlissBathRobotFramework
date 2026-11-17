@@ -75,10 +75,61 @@ Register With Invalid JSON
     ${response}=    POST    http://localhost:8081/register    data={"email":    headers=${headers}    expected_status=400
     RETURN    ${response}
 
+Register With Valid Data
+    [Documentation]    Register a new user with a unique email address.
+    ${unique_id}=    Evaluate    __import__('uuid').uuid4().hex
+    ${email}=    Set Variable    robot_${unique_id}@example.com
+    ${passwords}=    Create Dictionary    first=RobotTest123!    second=RobotTest123!
+    ${user}=    Create Dictionary
+    ...    email=${email}
+    ...    firstname=Robot
+    ...    lastname=Framework
+    ...    plainPassword=${passwords}
+    ${response}=    POST    http://localhost:8081/register    json=${user}    expected_status=200
+    RETURN    ${response}    ${email}
+
 Create Review With Invalid JSON
     [Documentation]    Verify that malformed review JSON is rejected for an authenticated user.
     ${login_response}=    Login With Valid Credentials
     ${token}=    Set Variable    ${login_response.json()}[token]
     ${headers}=    Create Dictionary    Authorization=Bearer ${token}    Content-Type=application/json
     ${response}=    POST    http://localhost:8081/reviews    data={"title":    headers=${headers}    expected_status=400
+    RETURN    ${response}
+
+Create Review With Valid Data
+    [Documentation]    Create a review using an authenticated user.
+    ${login_response}=    Login With Valid Credentials
+    ${token}=    Set Variable    ${login_response.json()}[token]
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
+    ${review}=    Create Dictionary
+    ...    title=Robot Framework Review
+    ...    comment=Automated API test review.
+    ...    rating=5
+    ${response}=    POST    http://localhost:8081/reviews    json=${review}    headers=${headers}    expected_status=200
+    RETURN    ${response}
+
+Validate Current Order
+    [Documentation]    Validate the current order for an authenticated user.
+    ${login_response}=    Login With Valid Credentials
+    ${token}=    Set Variable    ${login_response.json()}[token]
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
+    ${order_data}=    Create Dictionary
+    ...    firstname=Robot
+    ...    lastname=Framework
+    ...    address=10 Test Street
+    ...    zipCode=75001
+    ...    city=Paris
+    ${response}=    POST    http://localhost:8081/orders    json=${order_data}    headers=${headers}    expected_status=200
+    RETURN    ${response}
+
+Add Product To Current Order
+    [Documentation]    Add one product to the authenticated user's current order.
+    ${login_response}=    Login With Valid Credentials
+    ${token}=    Set Variable    ${login_response.json()}[token]
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
+    ${products_response}=    Get All Products
+    ${products}=    Set Variable    ${products_response.json()}
+    ${product_id}=    Set Variable    ${products}[0][id]
+    ${order_line}=    Create Dictionary    product=${product_id}    quantity=1
+    ${response}=    PUT    http://localhost:8081/orders/add    json=${order_line}    headers=${headers}    expected_status=200
     RETURN    ${response}

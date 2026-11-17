@@ -27,5 +27,12 @@ Create Review With Invalid JSON Returns Status 400
 
 Create Review With Valid Data Returns Status 200
     [Documentation]    Verify that an authenticated user can create a review.
-    [Tags]    requires_isolation
-    Skip    Requires an isolated test environment to create a review safely.
+    ${response}=    Create Review With Valid Data
+    Should Be Equal As Integers    ${response.status_code}    200
+    ${review}=    Set Variable    ${response.json()}
+    Should Be Equal As Strings    ${review}[title]    Robot Framework Review
+    Should Be Equal As Strings    ${review}[comment]    Automated API test review.
+    Should Be Equal As Integers    ${review}[rating]    5
+    Dictionary Should Contain Key    ${review}    id
+    Dictionary Should Contain Key    ${review}    date
+    Dictionary Should Contain Key    ${review}    author

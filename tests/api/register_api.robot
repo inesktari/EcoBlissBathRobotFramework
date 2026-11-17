@@ -11,5 +11,11 @@ Register With Invalid JSON Returns Status 400
 
 Register With Valid Data Returns Status 200
     [Documentation]    Verify that a new user can register successfully.
-    [Tags]    requires_isolation
-    Skip    Requires an isolated test environment to create a user safely.
+    ${response}    ${email}=    Register With Valid Data
+    Should Be Equal As Integers    ${response.status_code}    200
+    ${user}=    Set Variable    ${response.json()}
+    Should Be Equal As Strings    ${user}[email]    ${email}
+    Should Be Equal As Strings    ${user}[firstname]    Robot
+    Should Be Equal As Strings    ${user}[lastname]    Framework
+    Dictionary Should Contain Key    ${user}    id
+    Dictionary Should Contain Key    ${user}    roles
