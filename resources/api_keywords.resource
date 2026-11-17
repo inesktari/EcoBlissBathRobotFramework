@@ -68,3 +68,17 @@ Validate Product Structure
     Dictionary Should Contain Key    ${product}    description
     Dictionary Should Contain Key    ${product}    price
     Dictionary Should Contain Key    ${product}    picture
+
+Register With Invalid JSON
+    [Documentation]    Send malformed JSON to the registration endpoint.
+    ${headers}=    Create Dictionary    Content-Type=application/json
+    ${response}=    POST    http://localhost:8081/register    data={"email":    headers=${headers}    expected_status=400
+    RETURN    ${response}
+
+Create Review With Invalid JSON
+    [Documentation]    Verify that malformed review JSON is rejected for an authenticated user.
+    ${login_response}=    Login With Valid Credentials
+    ${token}=    Set Variable    ${login_response.json()}[token]
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}    Content-Type=application/json
+    ${response}=    POST    http://localhost:8081/reviews    data={"title":    headers=${headers}    expected_status=400
+    RETURN    ${response}

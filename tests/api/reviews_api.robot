@@ -19,3 +19,13 @@ Get All Reviews Returns A List
         Dictionary Should Contain Key    ${review}    rating
         Dictionary Should Contain Key    ${review}    author
     END
+
+Create Review With Invalid JSON Returns Status 400
+    [Documentation]    Verify that malformed JSON is rejected when creating a review.
+    ${response}=    Create Review With Invalid JSON
+    Should Be Equal As Integers    ${response.status_code}    400
+
+Create Review With Valid Data Returns Status 200
+    [Documentation]    Verify that an authenticated user can create a review.
+    [Tags]    requires_isolation
+    Skip    Requires an isolated test environment to create a review safely.
