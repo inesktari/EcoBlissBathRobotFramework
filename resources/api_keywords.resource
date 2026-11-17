@@ -141,22 +141,22 @@ Add Product To Current Order
 
 Change Order Line Quantity
     [Documentation]    Change the quantity of an existing order line.
-    [Arguments]    ${line_id}    ${quantity}
+    [Arguments]    ${line_id}    ${quantity}    ${expected_status}=200
     ${login_response}=    Login With Valid Credentials
     ${token}=    Set Variable    ${login_response.json()}[token]
     ${headers}=    Create Dictionary    Authorization=Bearer ${token}
     ${quantity}=    Convert To Integer    ${quantity}
     ${body}=    Create Dictionary    quantity=${quantity}    
-    ${response}=    PUT    http://localhost:8081/orders/${line_id}/change-quantity    json=${body}    headers=${headers}    expected_status=200
+    ${response}=    PUT    http://localhost:8081/orders/${line_id}/change-quantity    json=${body}    headers=${headers}    expected_status=${expected_status}
     RETURN    ${response}
 
 Delete Order Line
     [Documentation]    Delete an order line from the authenticated user's current order.
-    [Arguments]    ${line_id}
+    [Arguments]    ${line_id}    ${expected_status}=200
     ${login_response}=    Login With Valid Credentials
     ${token}=    Set Variable    ${login_response.json()}[token]
     ${headers}=    Create Dictionary    Authorization=Bearer ${token}
-    ${response}=    DELETE    http://localhost:8081/orders/${line_id}/delete    headers=${headers}    expected_status=200
+    ${response}=    DELETE    http://localhost:8081/orders/${line_id}/delete    headers=${headers}    expected_status=${expected_status}
     RETURN    ${response}
 
 

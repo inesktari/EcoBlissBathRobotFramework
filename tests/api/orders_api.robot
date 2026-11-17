@@ -90,3 +90,13 @@ Delete Order Line Returns Status 200
     FOR    ${line}    IN    @{updated_lines}
         Should Not Be Equal As Integers    ${line}[id]    ${line_id}
     END
+
+Delete Nonexistent Order Line Returns Status 404
+    [Documentation]    Verify that deleting a nonexistent order line returns HTTP 404.
+    ${response}=    Delete Order Line    999999999    404
+    Should Be Equal As Integers    ${response.status_code}    404
+
+Change Nonexistent Order Line Quantity Returns Status 404
+    [Documentation]    Verify that changing the quantity of a nonexistent order line returns HTTP 404.
+    ${response}=    Change Order Line Quantity    999999999    2    404
+    Should Be Equal As Integers    ${response.status_code}    404
