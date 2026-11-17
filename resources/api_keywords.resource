@@ -124,12 +124,62 @@ Validate Current Order
 
 Add Product To Current Order
     [Documentation]    Add one product to the authenticated user's current order.
+    [Arguments]    ${requested_product_id}=${NONE}
     ${login_response}=    Login With Valid Credentials
     ${token}=    Set Variable    ${login_response.json()}[token]
     ${headers}=    Create Dictionary    Authorization=Bearer ${token}
     ${products_response}=    Get All Products
     ${products}=    Set Variable    ${products_response.json()}
     ${product_id}=    Set Variable    ${products}[0][id]
+    IF    $requested_product_id is not None
+        ${product_id}=    Set Variable    ${requested_product_id}
+    END    
+    
     ${order_line}=    Create Dictionary    product=${product_id}    quantity=1
     ${response}=    PUT    http://localhost:8081/orders/add    json=${order_line}    headers=${headers}    expected_status=200
     RETURN    ${response}
+
+Change Order Line Quantity
+    [Documentation]    Change the quantity of an existing order line.
+    [Arguments]    ${line_id}    ${quantity}
+    ${login_response}=    Login With Valid Credentials
+    ${token}=    Set Variable    ${login_response.json()}[token]
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
+    ${quantity}=    Convert To Integer    ${quantity}
+    ${body}=    Create Dictionary    quantity=${quantity}    
+    ${response}=    PUT    http://localhost:8081/orders/${line_id}/change-quantity    json=${body}    headers=${headers}    expected_status=200
+    RETURN    ${response}
+
+Delete Order Line
+    [Documentation]    Delete an order line from the authenticated user's current order.
+    [Arguments]    ${line_id}
+    ${login_response}=    Login With Valid Credentials
+    ${token}=    Set Variable    ${login_response.json()}[token]
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
+    ${response}=    DELETE    http://localhost:8081/orders/${line_id}/delete    headers=${headers}    expected_status=200
+    RETURN    ${response}
+
+
+Get Product ID Not In Current Order
+    [Documentation]    Find a product that is not already in the current order.
+    ${order_response}=    Get Current Order
+    ${existing_product_ids}=    Create List
+
+    IF    ${order_response.status_code} == 200
+        ${order}=    Set Variable    ${order_response.json()}
+        FOR    ${line}    IN    @{order}[orderLines]
+            Append To List    ${existing_product_ids}    ${line}[product][id]
+        END
+    END
+
+    ${products_response}=    Get All Products
+    ${products}=    Set Variable    ${products_response.json()}
+
+    FOR    ${product}    IN    @{products}
+        ${product_id}=    Set Variable    ${product}[id]
+        IF    $product_id not in $existing_product_ids
+            RETURN    ${product_id}
+        END
+    END
+
+    Fail    No unused product is available for the current order.
