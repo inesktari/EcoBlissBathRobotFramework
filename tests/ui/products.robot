@@ -76,3 +76,14 @@ User Cannot Add Zero Quantity To Cart
     Enter Product Quantity    0
     Attempt To Add Product To Cart
     Verify Zero Quantity Is Rejected    ${product_name}    ${product_url}
+
+Product Details Page Displays Essential Elements
+    [Documentation]    Verify that essential product details are visible.
+    ${product_name}    ${product_url}=    Open First Available Product
+    Wait Until Element Is Visible    css:[data-cy="detail-product-name"]    ${TIMEOUT}
+    Element Should Be Visible    css:[data-cy="detail-product-img"]
+    Element Should Be Visible    css:[data-cy="detail-product-description"]
+    Element Should Be Visible    css:[data-cy="detail-product-price"]
+    Element Should Be Visible    ${PRODUCT_STOCK}
+    Element Should Be Visible    ${PRODUCT_QUANTITY}
+    Element Should Be Visible    ${ADD_TO_CART_BUTTON}

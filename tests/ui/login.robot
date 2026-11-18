@@ -41,3 +41,12 @@ User Can Logout From Cart
     Logout User
     Verify User Is Logged Out
     Wait Until Location Is    ${URL}/#/    ${TIMEOUT}
+
+Login Page Displays Essential Elements
+    [Documentation]    Verify that the login form and its essential elements are visible.
+    Open Login Page
+    Element Should Be Visible    css:[data-cy="login-form"]
+    Element Should Be Visible    css:[data-cy="login-input-username"]
+    Element Should Be Visible    css:[data-cy="login-input-password"]
+    Element Should Be Visible    css:[data-cy="login-submit"]
+    Element Should Be Visible    css:[data-cy="login-form"] a[href="#/register"]
