@@ -1,66 +1,105 @@
-# EcoBlissBath
-EcoBlissBath est une application e-commerce de produits de beauté écoresponsables, développée dans le cadre d'un projet pédagogique OpenClassrooms.<br><br>
+# EcoBlissBath — Automatisation des tests UI & API
 
-Ce dépôt présente l'automatisation des tests fonctionnels de l'application avec **Robot Framework** et **SeleniumLibrary**, selon une démarche qualité inspirée des bonnes pratiques ISTQB.<br><br>
+Projet d'automatisation des tests d'une application e-commerce de produits de beauté écoresponsables, réalisée dans le cadre d'un projet pédagogique OpenClassrooms.
 
-**Objectifs :** valider les parcours utilisateurs, vérifier les règles métier et détecter les régressions.
+Ce dépôt présente mon travail avec **Robot Framework**, **SeleniumLibrary** et **RequestsLibrary**, dans une démarche qualité s'appuyant sur les principes ISTQB.
+
+**Objectif :** automatiser les parcours critiques, vérifier les règles métier, détecter les régressions et documenter les anomalies.
+
+## Technologies
+
+**Robot Framework** · **Python** · **SeleniumLibrary** · **RequestsLibrary** · **Docker** · **Git / GitHub**
 
 ## Couverture des tests
-Les **tests UI automatisés** couvrent :<br>
-- Affichage de la page d'accueil et authentification.<br>
-- Ajout et suppression de produits dans le panier.<br>
-- Augmentation et diminution des quantités.<br>
-- Vérification de la quantité minimale autorisée.<br>
-- Contrôle des montants exacts après modification des quantités.<br>
-- Validation d'une commande.<br>
 
-Les tests utilisent des keywords réutilisables, des locators centralisés et des mécanismes Setup/Teardown pour améliorer leur maintenabilité.
+### Tests UI
+- Affichage des éléments essentiels : accueil, connexion et fiches produits.
+- Authentification et déconnexion.
+- Ajout, suppression et modification des quantités dans le panier.
+- Vérification des prix et des totaux.
+- Validation des commandes et des formulaires.
+- Scénarios négatifs : quantités invalides, stocks et codes postaux.
 
-## Installation
-### Prérequis :
-Git, Docker, Python et un navigateur compatible Selenium.<br>
+### Tests API
+- Authentification et inscription.
+- Produits, utilisateurs, commandes et avis.
+- Vérification des codes HTTP et des réponses JSON.
+- Tests négatifs, valeurs limites et accès non authentifiés.
+- Vérifications ciblées du traitement des contenus HTML et XSS.
 
-### Cloner le dépôt :
-git clone https://github.com/inesktari/EcoBlissBathRobotFramework.git <br>
-cd EcoBlissBathRobotFramework
-
-### Démarrer l'application :
-docker compose up --build
-
-### Installer les dépendances Python :
-python -m venv .venv<br>
-python -m pip install robotframework robotframework-seleniumlibrary
-
-### Application :
-http://localhost:8080
-
-### Documentation API :
-http://localhost:8081/api/doc/
+Les tests utilisent des **keywords réutilisables**, des **locators centralisés** et des mécanismes **Setup/Teardown**.
 
 ## Exécution des tests
-Pour exécuter les scénarios nécessitant une authentification, utiliser le compte de démonstration suivant :<br>
-**Identifiant :** test2@test.fr<br>
-**Mot de passe :** testtest<br>
 
-Lancer tous les tests UI :
-python -m robot --outputdir results tests/ui/
+### Prérequis
 
-Lancer uniquement les tests du panier :
-python -m robot --outputdir results tests/ui/cart.robot
+Python, Docker, Git et un navigateur compatible Selenium.
 
-Les rapports sont générés automatiquement dans results/ :<br>
-- report.html : synthèse des résultats.<br>
-- log.html : détail des exécutions.<br>
-- output.xml : résultats structurés.<br>
+L'application doit être démarrée :
+```bash
+docker compose up --build
+```
 
-## Améliorations prévues
-- Compléter la couverture des tests fonctionnels avec des scénarios négatifs.<br>
-- Automatiser les tests API avec Robot Framework.<br>
-- Améliorer progressivement la robustesse et la maintenabilité des tests.<br>
+Installer les bibliothèques Python :
+```bash
+python -m pip install robotframework robotframework-seleniumlibrary robotframework-requests
+```
 
-## Historique des versions
-- **v1.0.0 :** Tests fonctionnels manuels.<br>
-- **v2.0.0 :** Automatisation des tests UI avec Robot Framework et SeleniumLibrary.<br>
+**Application :** http://localhost:8080/  
+**Documentation API :** http://localhost:8081/api/doc/
+
+### Smoke tests
+
+```bash
+python -m robot --include smoke --exclude known_issue tests/
+```
+
+### Régression UI & API
+
+```bash
+python -m robot --exclude known_issue --exclude pending_stock_isolation tests/
+```
+
+### Tests UI uniquement
+
+```bash
+python -m robot --exclude known_issue --exclude pending_stock_isolation tests/ui/
+```
+
+### Tests API uniquement
+
+```bash
+python -m robot --exclude known_issue tests/api/
+```
+
+Les rapports `report.html`, `log.html` et `output.xml` sont générés automatiquement par Robot Framework.
+
+## Résultats et anomalies
+
+**Smoke tests : 4 PASS / 4**
+
+Les tests ont permis d'identifier et de documenter **7 anomalies**, notamment :
+- Acceptation de codes postaux alphabétiques.
+- Gestion incorrecte des stocks et des quantités.
+- Erreurs HTTP 500 lors d'accès API non authentifiés.
+
+Les tests associés aux anomalies connues sont conservés avec les tags `known_issue` et `issue_N`.
+
+**[Consulter les anomalies sur GitHub](https://github.com/inesktari/EcoBlissBathRobotFramework/issues)**
+
+## Démarche QA
+
+Ce projet met en pratique plusieurs compétences liées à ma certification **ISTQB Foundation Level** :
+
+- Conception de scénarios positifs et négatifs.
+- Analyse des valeurs limites.
+- Exécution et analyse des tests.
+- Gestion et suivi des anomalies.
+- Automatisation des tests de non-régression.
+
 ## Auteur
-Ines KAMMOUN KTARI<br>
-ineskammoun24@hotmail.fr
+
+**Ines KAMMOUN KTARI**  
+*Testeuse QA certifiée ISTQB — Tests fonctionnels et automatisation*
+
+Contact : ineskammoun24@hotmail.fr
