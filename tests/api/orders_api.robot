@@ -31,6 +31,13 @@ Validate Order With Valid Data Returns Status 200
     Dictionary Should Contain Key    ${order}    id
     Dictionary Should Contain Key    ${order}    orderLines
 
+Validate Order Without Authentication Returns Status 401
+    [Documentation]    Verify that an unauthenticated user cannot validate an order.
+    [Tags]    known_issue    issue_6
+    ${response}=    Validate Order Without Authentication
+    Log To Console    Actual HTTP status: ${response.status_code}
+    Should Be Equal As Integers    ${response.status_code}    401
+
 Change Order Line Quantity Returns Status 200
     [Documentation]    Verify that the quantity of an order line can be updated.
     ${product_id}=    Get Product ID Not In Current Order

@@ -14,3 +14,10 @@ Get Current User Returns User Information
     Dictionary Should Contain Key    ${user}    email
     Dictionary Should Contain Key    ${user}    roles
     Should Be Equal    ${user}[email]    test2@test.fr
+
+Get Current User Without Authentication Returns Status 401
+    [Documentation]    Verify that accessing the current user endpoint without authentication returns HTTP 401.
+    [Tags]    known_issue    issue_5
+    ${response}=    Get Current User Without Authentication
+    Log To Console    Actual HTTP status: ${response.status_code}
+    Should Be Equal As Integers    ${response.status_code}    401

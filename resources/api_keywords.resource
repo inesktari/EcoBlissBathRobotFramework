@@ -54,6 +54,11 @@ Get Current User
     ${response}=    GET    http://localhost:8081/me    headers=${headers}    expected_status=200
     RETURN    ${response}
 
+Get Current User Without Authentication
+    [Documentation]    Retrieve the current user without an authentication token.
+    ${response}=    GET    http://localhost:8081/me    expected_status=anything
+    RETURN    ${response}
+
 Get All Reviews
     [Documentation]    Retrieve all reviews from the API
     ${response}=    GET    http://localhost:8081/reviews    expected_status=200
@@ -120,6 +125,17 @@ Validate Current Order
     ...    zipCode=75001
     ...    city=Paris
     ${response}=    POST    http://localhost:8081/orders    json=${order_data}    headers=${headers}    expected_status=200
+    RETURN    ${response}
+
+Validate Order Without Authentication
+    [Documentation]    Attempt to validate an order without an authentication token.
+    ${order_data}=    Create Dictionary
+    ...    firstname=Robot
+    ...    lastname=Framework
+    ...    address=10 Test Street
+    ...    zipCode=75001
+    ...    city=Paris
+    ${response}=    POST    http://localhost:8081/orders    json=${order_data}    expected_status=anything
     RETURN    ${response}
 
 Add Product To Current Order
