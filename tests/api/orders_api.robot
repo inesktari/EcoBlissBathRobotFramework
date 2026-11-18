@@ -107,3 +107,11 @@ Change Nonexistent Order Line Quantity Returns Status 404
     [Documentation]    Verify that changing the quantity of a nonexistent order line returns HTTP 404.
     ${response}=    Change Order Line Quantity    999999999    2    404
     Should Be Equal As Integers    ${response.status_code}    404
+
+Add Product With Quantity Above 20 Returns Client Error
+    [Documentation]    Verify that the API rejects adding more than 20 units of a product.
+    [Tags]    known_issue    issue_7
+    ${product_id}=    Get Product ID Not In Current Order
+    ${response}=    Add Product To Current Order    ${product_id}    21    anything
+    Log To Console    Actual HTTP status: ${response.status_code}
+    Should Be True    ${response.status_code} in [400, 422]

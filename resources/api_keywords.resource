@@ -103,14 +103,16 @@ Create Review With Invalid JSON
 
 Create Review With Valid Data
     [Documentation]    Create a review using an authenticated user.
+    [Arguments]    ${title}=Robot Framework Review    ${comment}=Automated API test review.    ${expected_status}=200
     ${login_response}=    Login With Valid Credentials
     ${token}=    Set Variable    ${login_response.json()}[token]
     ${headers}=    Create Dictionary    Authorization=Bearer ${token}
     ${review}=    Create Dictionary
-    ...    title=Robot Framework Review
-    ...    comment=Automated API test review.
+    ...    title=${title}
+    ...    comment=${comment}
     ...    rating=5
-    ${response}=    POST    http://localhost:8081/reviews    json=${review}    headers=${headers}    expected_status=200
+    
+    ${response}=    POST    http://localhost:8081/reviews    json=${review}    headers=${headers}    expected_status=${expected_status}
     RETURN    ${response}
 
 Validate Current Order
@@ -140,7 +142,7 @@ Validate Order Without Authentication
 
 Add Product To Current Order
     [Documentation]    Add one product to the authenticated user's current order.
-    [Arguments]    ${requested_product_id}=${NONE}
+    [Arguments]    ${requested_product_id}=${NONE}    ${quantity}=1    ${expected_status}=200
     ${login_response}=    Login With Valid Credentials
     ${token}=    Set Variable    ${login_response.json()}[token]
     ${headers}=    Create Dictionary    Authorization=Bearer ${token}
@@ -149,10 +151,11 @@ Add Product To Current Order
     ${product_id}=    Set Variable    ${products}[0][id]
     IF    $requested_product_id is not None
         ${product_id}=    Set Variable    ${requested_product_id}
-    END    
-    
-    ${order_line}=    Create Dictionary    product=${product_id}    quantity=1
-    ${response}=    PUT    http://localhost:8081/orders/add    json=${order_line}    headers=${headers}    expected_status=200
+    END
+
+    ${quantity}=    Convert To Integer    ${quantity}
+    ${order_line}=    Create Dictionary    product=${product_id}    quantity=${quantity}
+    ${response}=    PUT    http://localhost:8081/orders/add    json=${order_line}    headers=${headers}    expected_status=${expected_status}
     RETURN    ${response}
 
 Change Order Line Quantity

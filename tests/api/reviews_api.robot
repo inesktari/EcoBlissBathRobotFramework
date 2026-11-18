@@ -36,3 +36,17 @@ Create Review With Valid Data Returns Status 200
     Dictionary Should Contain Key    ${review}    id
     Dictionary Should Contain Key    ${review}    date
     Dictionary Should Contain Key    ${review}    author
+
+Create Review With HTML Content Returns Status 200
+    [Documentation]    Verify how the API handles HTML markup in a review comment.
+    ${comment}=    Set Variable    <b>Robot Framework HTML test</b>
+    ${response}=    Create Review With Valid Data    Robot HTML Test    ${comment}    anything
+    Log To Console    Actual HTTP status: ${response.status_code}
+    Should Be Equal As Integers    ${response.status_code}    200
+
+Create Review With XSS Payload Is Accepted By API
+    [Documentation]    Verify that the API accepts a review containing an XSS test payload. Browser-side sanitization was verified manually.
+    ${payload}=    Set Variable    <img src="invalid-image" onerror="alert(1)">
+    ${response}=    Create Review With Valid Data    Robot XSS Test    ${payload}    anything
+    Log To Console    Actual HTTP status: ${response.status_code}
+    Should Be Equal As Integers    ${response.status_code}    200
