@@ -8,5 +8,6 @@ Test Teardown     Close Browser Session
 *** Test Cases ***
 Test Logo Presence
     [Documentation]    Verify logo EcoBlissBath visibility
+    [Tags]    smoke
     Open EcoBlissBath Website
     Verify Home Page Logo Is Visible

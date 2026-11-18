@@ -9,6 +9,7 @@ Library    Collections
 *** Test Cases ***
 User Can Add Product To Cart
     [Documentation]    Verify that a logged-in user can add a product to the shopping cart
+    [Tags]    smoke
     [Setup]    Start With Empty Cart
     Add First Product From Homepage
     Verify Product Is In Cart

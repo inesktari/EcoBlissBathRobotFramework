@@ -8,6 +8,7 @@ Test Teardown     Close Browser Session
 *** Test Cases ***
 User Can Login With Valid Credentials
     [Documentation]    Verify that a user can login with valid credentials
+    [Tags]    smoke
     Open Login Page
     Input Username
     Input Password

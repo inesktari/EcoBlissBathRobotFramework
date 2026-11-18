@@ -11,6 +11,7 @@ ${API_URL}    http://localhost:8081
 *** Test Cases ***
 Get Products Returns Status 200
     [Documentation]    Verify that the products endpoint returns a product list
+    [Tags]    smoke
     ${response}=    Get All Products
     Should Be Equal As Integers    ${response.status_code}    200
     Should Be True    isinstance($response.json(), list)
