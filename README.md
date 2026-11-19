@@ -12,11 +12,13 @@ Ce dépôt présente mon travail avec **Robot Framework**, **SeleniumLibrary** e
 
 ## Couverture des tests
 
+**53 scénarios automatisés** (27 UI et 26 API), dont 4 smoke tests.
+
 ### Tests UI
-- Affichage des éléments essentiels : accueil, connexion et fiches produits.
+- Affichage des éléments essentiels et navigation dans le catalogue.
 - Authentification et déconnexion.
-- Ajout, suppression et modification des quantités dans le panier.
-- Vérification des prix et des totaux.
+- Gestion du panier : ajout, suppression, quantités et panier vide.
+- Vérification des prix et des totaux pour plusieurs produits.
 - Validation des commandes et des formulaires.
 - Scénarios négatifs : quantités invalides, stocks et codes postaux.
 
@@ -25,7 +27,8 @@ Ce dépôt présente mon travail avec **Robot Framework**, **SeleniumLibrary** e
 - Produits, utilisateurs, commandes et avis.
 - Vérification des codes HTTP et des réponses JSON.
 - Tests négatifs, valeurs limites et accès non authentifiés.
-- Vérifications ciblées du traitement des contenus HTML et XSS.
+- Vérification des erreurs HTTP 400 et 404.
+- Vérifications ciblées des contenus HTML et XSS.
 
 Les tests utilisent des **keywords réutilisables**, des **locators centralisés** et des mécanismes **Setup/Teardown**.
 
