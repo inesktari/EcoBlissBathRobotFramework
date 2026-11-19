@@ -25,6 +25,24 @@ Verify Home Page Logo Is Visible
     Wait Until Element Is Visible    ${HOME_LOGO}    ${TIMEOUT}
     Element Should Be Visible    ${HOME_LOGO}
 
+Open Product Catalog From Homepage
+    [Documentation]    Opens the product catalog using the homepage button.
+    Wait Until Element Is Visible    ${HOME_BROWSE_PRODUCTS_BUTTON}    ${TIMEOUT}
+    Click Button    ${HOME_BROWSE_PRODUCTS_BUTTON}
+
+Verify Product Catalog Is Displayed
+    [Documentation]    Verifies that the product catalog page is displayed.
+    Wait Until Location Is    ${URL}/#/products    ${TIMEOUT}
+    Wait Until Element Is Visible    ${CATALOG_PRODUCT_CARD}    ${TIMEOUT}
+    Page Should Contain    Nos produits
+
+Verify Empty Cart State
+    [Documentation]    Verifies that the cart displays its empty state.
+    Wait Until Element Is Visible    ${EMPTY_CART_SECTION}    ${TIMEOUT}
+    Element Should Contain    ${EMPTY_CART_SECTION}    Votre panier est vide.
+    Page Should Not Contain Element    ${CART_LINE}
+    Page Should Not Contain Element    ${CHECKOUT_BUTTON}
+
 Verify User Is Logged In
     [Documentation]    Verifies that the user is successfully logged in
     Wait Until Element Is Visible    ${LOGOUT_LINK}    ${TIMEOUT}
@@ -341,3 +359,58 @@ Verify Zero Quantity Is Rejected
     ...    BUG: A quantity of zero was accepted and the user was redirected to the cart.
 
     Verify Product Was Not Added To Cart    ${product_name}    ${product_url}
+
+Add Another Available Product To Cart
+    [Documentation]    Adds an available product different from the first one.
+    [Arguments]    ${first_product_name}
+
+    Wait Until Element Is Visible    css:[data-cy="nav-link-products"]    ${TIMEOUT}
+    Click Element    css:[data-cy="nav-link-products"]
+
+    Wait Until Element Is Visible    css:body    ${TIMEOUT}
+
+    Wait Until Element Is Visible    css:.list-products article.mini-product    ${TIMEOUT}
+
+    ${count}=    Get Element Count    css:.list-products article.mini-product [data-cy="product-link"]
+
+    FOR    ${index}    IN RANGE    ${count}
+        Go To    ${URL}/#/products
+        Wait Until Element Is Visible    css:.list-products article.mini-product    ${TIMEOUT}
+
+        @{links}=    Get WebElements    css:.list-products article.mini-product [data-cy="product-link"]
+        Click Element    ${links}[${index}]
+
+        Wait Until Element Is Visible    ${PRODUCT_STOCK}    ${TIMEOUT}
+        ${stock_text}=    Get Text    ${PRODUCT_STOCK}
+        ${stock}=    Evaluate    int($stock_text.split()[0])
+        ${product_name}=    Get Text    css:[data-cy="detail-product-name"]
+
+        IF    ${stock} > 0 and $product_name != $first_product_name
+            Wait Until Element Is Visible    ${ADD_TO_CART_BUTTON}    ${TIMEOUT}
+            Element Should Be Enabled    ${ADD_TO_CART_BUTTON}
+            Click Button    ${ADD_TO_CART_BUTTON}
+            RETURN    ${product_name}
+        END
+    END
+
+    Skip    No second distinct product with positive stock is available.
+
+Verify Cart Total Equals Sum Of Line Totals
+    [Documentation]    Verifies that the cart total equals the sum of its two line totals.
+    Wait Until Element Is Visible    ${CART_TOTAL}    ${TIMEOUT}
+    ${count}=    Get Element Count    ${CART_LINE}
+    Should Be Equal As Integers    ${count}    2
+
+    @{line_elements}=    Get WebElements    ${CART_LINE_TOTAL}
+    ${sum}=    Evaluate    __import__('decimal').Decimal('0')
+
+    FOR    ${element}    IN    @{line_elements}
+        ${text}=    Get Text    ${element}
+        ${amount}=    Evaluate    __import__('decimal').Decimal(''.join(c for c in $text if c.isdigit() or c in ',.').replace(',', '.'))
+        ${sum}=    Evaluate    $sum + $amount
+    END
+
+    ${total_text}=    Get Text    ${CART_TOTAL}
+    ${actual_total}=    Evaluate    __import__('decimal').Decimal(''.join(c for c in $total_text if c.isdigit() or c in ',.').replace(',', '.'))
+
+    Should Be Equal    ${actual_total}    ${sum}

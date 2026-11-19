@@ -23,6 +23,14 @@ Logged In User Can Remove Product From Cart
     ${removed_product}=    Remove Product From Cart
     Verify Product Is Removed From Cart    ${removed_product}
 
+Logged In User Sees Empty Cart After Removing Last Product
+    [Documentation]    Verify the empty cart state after removing the last product.
+    Add First Product From Homepage
+    Open Cart
+    Verify Product Is In Cart
+    Remove Product From Cart
+    Verify Empty Cart State
+
 Logged In User Can Update Product Quantity
     [Documentation]    Verify that a logged-in user can update a product quantity in the shopping cart.
     Add First Product From Homepage
@@ -58,6 +66,17 @@ Logged In User Can Access Checkout
     Add First Product From Homepage
     Open Cart
     Verify Checkout Is Available
+
+Cart Total Equals Sum Of Two Different Products
+    [Documentation]    Verify the cart total for two distinct products.
+    Open First Available Product
+    ${first_product_name}=    Get Text    css:[data-cy="detail-product-name"]
+    Click Button    ${ADD_TO_CART_BUTTON}
+
+    ${second_product_name}=    Add Another Available Product To Cart    ${first_product_name}
+
+    Open Cart
+    Verify Cart Total Equals Sum Of Line Totals
 
 Logged In User Can Submit Valid Order
     [Documentation]    Verify that a logged-in user can submit an order with valid checkout information.

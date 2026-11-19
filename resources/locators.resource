@@ -5,6 +5,8 @@ Documentation       Centralized UI locators for the EcoBlissBath application.
 *** Variables ***
 ${HOME_TITLE}               EcoBlissBath
 ${HOME_LOGO}    xpath=//a[@data-cy='nav-link-home-logo']/img
+${HOME_BROWSE_PRODUCTS_BUTTON}    css:app-home header button
+${CATALOG_PRODUCT_CARD}          css:[data-cy="product"]
 ${PRODUCT_CARD}    css:[data-cy="product-home"]
 ${PRODUCT_DETAILS_LINK}      css:[data-cy="product-home-link"]
 ${PRODUCT_STOCK}    css:[data-cy="detail-product-stock"]
@@ -20,6 +22,8 @@ ${CART_PRODUCT_QUANTITY}    css:[data-cy="cart-line-quantity"]
 ${CART_DELETE_BUTTON}    css:[data-cy="cart-line-delete"]
 ${CART_LINE_TOTAL}    css:[data-cy="cart-line-total"]
 ${CART_LINE}    css:[data-cy="cart-line"]
+${CART_TOTAL}    css:[data-cy="cart-total"]
+${EMPTY_CART_SECTION}    css:[data-cy="cart-empty"]
 ${CHECKOUT_LASTNAME}     css:[data-cy="cart-input-lastname"]
 ${CHECKOUT_FIRSTNAME}    css:[data-cy="cart-input-firstname"]
 ${CHECKOUT_ADDRESS}      css:[data-cy="cart-input-address"]

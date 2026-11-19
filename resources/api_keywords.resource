@@ -115,6 +115,22 @@ Create Review With Valid Data
     ${response}=    POST    http://localhost:8081/reviews    json=${review}    headers=${headers}    expected_status=${expected_status}
     RETURN    ${response}
 
+Create Review With Invalid Rating Type
+    [Documentation]    Sends a review with an invalid rating data type.
+    ${login_response}=    Login With Valid Credentials
+    ${token}=    Set Variable    ${login_response.json()}[token]
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
+    ${invalid_rating}=    Create Dictionary    value=5
+    ${review}=    Create Dictionary
+    ...    title=Invalid Rating Test
+    ...    comment=Testing invalid rating type
+    ...    rating=${invalid_rating}
+    ${response}=    POST    http://localhost:8081/reviews
+    ...    json=${review}
+    ...    headers=${headers}
+    ...    expected_status=anything
+    RETURN    ${response}
+    
 Validate Current Order
     [Documentation]    Validate the current order for an authenticated user.
     ${login_response}=    Login With Valid Credentials
@@ -202,3 +218,24 @@ Get Product ID Not In Current Order
     END
 
     Fail    No unused product is available for the current order.
+
+Get Current Order For New User
+    [Documentation]    Retrieve the current order of a newly registered user.
+    ${register_response}    ${email}=    Register With Valid Data
+
+    ${credentials}=    Create Dictionary
+    ...    username=${email}
+    ...    password=RobotTest123!
+
+    ${login_response}=    POST    http://localhost:8081/login
+    ...    json=${credentials}
+    ...    expected_status=200
+
+    ${token}=    Set Variable    ${login_response.json()}[token]
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
+
+    ${response}=    GET    http://localhost:8081/orders
+    ...    headers=${headers}
+    ...    expected_status=anything
+
+    RETURN    ${response}

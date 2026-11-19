@@ -37,6 +37,11 @@ Create Review With Valid Data Returns Status 200
     Dictionary Should Contain Key    ${review}    date
     Dictionary Should Contain Key    ${review}    author
 
+Create Review With Invalid Rating Type Returns Status 400
+    [Documentation]    Verify that the API rejects a review with a non-numeric rating.
+    ${response}=    Create Review With Invalid Rating Type
+    Should Be Equal As Integers    ${response.status_code}    400
+
 Create Review With HTML Content Returns Status 200
     [Documentation]    Verify how the API handles HTML markup in a review comment.
     ${comment}=    Set Variable    <b>Robot Framework HTML test</b>

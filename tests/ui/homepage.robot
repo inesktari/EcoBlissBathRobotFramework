@@ -27,3 +27,9 @@ Homepage Displays Essential Elements
     Element Should Be Visible    css:#main-footer
     Element Should Not Be Visible    ${CART_ICON}
     Element Should Not Be Visible    ${LOGOUT_LINK}
+
+Homepage Browse Products Opens Catalog
+    [Documentation]    Verify that the homepage button opens the product catalog.
+    Open EcoBlissBath Website
+    Open Product Catalog From Homepage
+    Verify Product Catalog Is Displayed

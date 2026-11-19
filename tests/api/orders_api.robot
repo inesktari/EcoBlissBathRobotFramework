@@ -115,3 +115,9 @@ Add Product With Quantity Above 20 Returns Client Error
     ${response}=    Add Product To Current Order    ${product_id}    21    anything
     Log To Console    Actual HTTP status: ${response.status_code}
     Should Be True    ${response.status_code} in [400, 422]
+
+Get Current Order For New User Returns Status 404
+    [Documentation]    Verify that a newly registered user has no current order.
+    ${response}=    Get Current Order For New User
+    Log To Console    Actual HTTP status: ${response.status_code}
+    Should Be Equal As Integers    ${response.status_code}    404
